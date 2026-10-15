@@ -1,738 +1,524 @@
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#fff4dc">
-<meta name="description" content="Мир Лисёнка — весёлое обучение для малышей: животные, цвета, фигуры, числа и игры.">
-<title>Мир Лисёнка 🦊 — учимся играя</title>
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#eaf7ff">
+<meta name="description" content="Мир Лисёнка — развивающие игры для малышей: животные, цвета, формы, цифры и викторины.">
+<title>Мир Лисёнка — учимся играя</title>
 <style>
-:root{
-  --bg:#fff8e9;
-  --ink:#382b45;
-  --muted:#776b80;
-  --orange:#ff9c45;
-  --pink:#ff8ca8;
-  --purple:#9a83f7;
-  --green:#73d6a1;
-  --blue:#7bc9f7;
-  --yellow:#ffda72;
-  --white:#fff;
-  --shadow:0 8px 24px #4b315014;
-}
+:root{--ink:#30445b;--muted:#74859a;--paper:#fff;--sky:#eaf7ff;--shadow:0 7px 0 rgba(61,91,122,.10);--line:#e7eff6}
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;
-  background:
-    radial-gradient(circle at 5% 8%,#ffe3b6 0,transparent 19%),
-    radial-gradient(circle at 95% 20%,#eadfff 0,transparent 22%),
-    var(--bg);
-  color:var(--ink);
-  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
-  min-height:100vh;
-}
-button{font:inherit;touch-action:manipulation}
-button:focus-visible{outline:4px solid #4935a5;outline-offset:3px}
-button:disabled{opacity:.45;cursor:not-allowed}
-.app{max-width:1080px;margin:auto;padding:16px 16px 40px}
-header{
-  display:flex;align-items:center;justify-content:space-between;
-  gap:12px;margin-bottom:20px;flex-wrap:wrap
-}
-.brand{display:flex;align-items:center;gap:11px}
-.logo{
-  width:58px;height:58px;border-radius:20px;
-  background:linear-gradient(145deg,#ffcb79,#ff914f);
-  display:grid;place-items:center;font-size:37px;
-  box-shadow:0 5px 0 #e77c3b;
-}
-.brand h1{font-size:clamp(21px,4vw,30px);margin:0;line-height:1.1}
-.brand p{margin:5px 0 0;color:var(--muted);font-size:13px}
-.header-actions{display:flex;gap:8px;flex-wrap:wrap}
-.small-btn{
-  border:0;border-radius:15px;background:#fff;padding:11px 13px;
-  box-shadow:var(--shadow);font-weight:800;color:var(--ink);cursor:pointer
-}
-.hero{
-  position:relative;overflow:hidden;border-radius:30px;padding:26px;
-  background:linear-gradient(125deg,#ffdb9a,#ffb7bc 55%,#d9c9ff);
-  display:grid;grid-template-columns:1.3fr .7fr;align-items:center;
-  gap:10px;box-shadow:var(--shadow);margin-bottom:22px
-}
-.hero h2{font-size:clamp(26px,5vw,43px);line-height:1.12;margin:0 0 12px}
-.hero p{font-size:16px;line-height:1.55;margin:0 0 17px;max-width:520px}
-.hero-art{text-align:center;font-size:clamp(90px,17vw,150px);filter:drop-shadow(0 9px 2px #8c5d3420)}
-.primary{
-  border:0;border-radius:17px;background:#49335e;color:white;
-  padding:13px 19px;font-weight:900;cursor:pointer;box-shadow:0 5px 0 #32223f
-}
-.primary:active{transform:translateY(2px);box-shadow:0 3px 0 #32223f}
-.section-title{font-size:23px;margin:24px 0 13px}
-.menu{
-  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px
-}
-.menu-card{
-  border:0;border-radius:23px;padding:18px 12px;min-height:150px;
-  text-align:center;color:var(--ink);cursor:pointer;
-  box-shadow:var(--shadow);transition:transform .16s;
-}
-.menu-card:hover{transform:translateY(-3px)}
-.menu-card .emoji{font-size:47px;display:block;margin-bottom:7px}
-.menu-card strong{font-size:16px;display:block}
-.menu-card span:last-child{font-size:12px;display:block;margin-top:5px;color:#584b64}
-.bg-pink{background:#ffe0e8}.bg-blue{background:#dff3ff}
-.bg-green{background:#ddf8e7}.bg-yellow{background:#fff0bd}
-.bg-purple{background:#eee6ff}.bg-orange{background:#ffe6cf}
-.panel{
-  margin-top:22px;padding:22px;border-radius:28px;background:#ffffffd9;
-  box-shadow:var(--shadow);display:none
-}
-.panel.active{display:block;animation:appear .2s ease}
-@keyframes appear{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-.panel-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-.panel h2{margin:0;font-size:26px}
-.back-btn{
-  border:0;border-radius:13px;background:#f0e9fa;padding:10px 14px;
-  color:var(--ink);font-weight:800;cursor:pointer
-}
-.filters{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}
-.filter{
-  border:0;border-radius:999px;background:#f0e9fa;padding:9px 13px;
-  cursor:pointer;font-weight:750;color:var(--ink)
-}
-.filter.active{background:#49335e;color:#fff}
-.card-stage{
-  display:grid;grid-template-columns:55px minmax(0,1fr) 55px;
-  align-items:center;gap:10px;margin-top:12px
-}
-.arrow{
-  width:52px;height:52px;border:0;border-radius:18px;background:#fff0bd;
-  font-size:25px;cursor:pointer;box-shadow:var(--shadow)
-}
-.learning-card{
-  min-height:300px;border-radius:27px;padding:22px;
-  background:linear-gradient(145deg,#f1eaff,#e6f8ff);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  text-align:center
-}
-.big-emoji{font-size:clamp(80px,15vw,125px);line-height:1.2;margin:6px}
-.learning-card h3{font-size:30px;margin:12px 0 5px}
-.learning-card p{font-size:17px;color:#635774;margin:4px 0 15px}
-.speak-btn{
-  border:0;border-radius:15px;background:#fff;padding:12px 17px;
-  font-weight:850;cursor:pointer;box-shadow:var(--shadow)
-}
-.progress{height:9px;border-radius:20px;background:#eee8f2;margin:17px 0 7px;overflow:hidden}
-.progress-fill{height:100%;background:linear-gradient(90deg,#ff9e5a,#ff8da8);width:0;transition:width .2s}
-.progress-label{text-align:center;font-size:13px;color:var(--muted)}
-.color-grid{
-  display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:11px;margin-top:18px
-}
-.color-card{
-  min-height:115px;border:0;border-radius:20px;padding:12px 5px;
-  cursor:pointer;box-shadow:var(--shadow);font-weight:850;color:#382b45
-}
-.color-dot{width:45px;height:45px;border-radius:50%;margin:0 auto 9px;border:3px solid #ffffffaa}
-.shape-dot{width:48px;height:48px;margin:0 auto 9px;display:block}
-.numbers-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:18px}
-.number-card{
-  min-height:86px;border:0;border-radius:20px;background:#e4f6ff;
-  color:#49335e;font-size:31px;font-weight:950;cursor:pointer;box-shadow:var(--shadow)
-}
-.number-card:nth-child(3n+2){background:#ffe6ee}
-.number-card:nth-child(3n){background:#e1f8e9}
-.quiz-box{margin-top:18px}
-.quiz-status{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-weight:750}
-.quiz-question{
-  margin:16px 0;padding:25px 15px;border-radius:23px;background:#f1eaff;
-  text-align:center
-}
-.quiz-emoji{font-size:75px}
-.quiz-question h3{font-size:clamp(21px,4vw,29px);margin:10px 0 0}
-.answers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
-.answer{
-  border:2px solid #eee5f5;background:#fff;border-radius:17px;padding:15px 10px;
-  font-weight:850;font-size:16px;cursor:pointer;min-height:58px
-}
-.answer.correct{background:#d8f8e4;border-color:#53bf80}
-.answer.wrong{background:#ffe0e4;border-color:#ff8193}
-.feedback{text-align:center;min-height:29px;font-weight:850;margin:13px 0}
-.result{text-align:center;padding:25px 8px}
-.result-emoji{font-size:80px}
-.result h3{font-size:28px;margin:10px}
-.result p{font-size:17px;color:var(--muted)}
-footer{text-align:center;color:var(--muted);font-size:13px;padding:28px 8px 5px}
+html{min-height:100%;background:var(--sky)}
+body{margin:0;min-height:100vh;color:var(--ink);font-family:ui-rounded,"Trebuchet MS",system-ui,-apple-system,"Segoe UI",sans-serif;background:radial-gradient(ellipse at 15% 8%,#fff 0,transparent 34%),linear-gradient(180deg,#eaf7ff,#f9fcff 65%,#f0fae9);text-align:center}
+button{font:inherit;cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+button:focus-visible,[tabindex]:focus-visible{outline:4px solid #ffbf52;outline-offset:3px}
+button:disabled{opacity:.45;cursor:default}
+.top{max-width:980px;margin:auto;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font-weight:1000;font-size:clamp(18px,4vw,24px);letter-spacing:-.5px}
+.brand span{display:inline-grid;place-items:center;width:42px;height:42px;border-radius:15px;background:#ffe8c7;margin-right:6px}
+.stars{background:#fff;border:1px solid #edf2f7;border-radius:99px;padding:10px 15px;font-weight:900;box-shadow:var(--shadow);white-space:nowrap}
+main{width:min(100% - 28px,900px);margin:0 auto;padding:8px 0 36px}
+.view{animation:fadein .28s ease both}
+@keyframes fadein{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
+.hero{padding:14px 0 4px}
+.mascot{display:grid;place-items:center;margin:0 auto 10px;width:clamp(112px,27vw,154px);aspect-ratio:1;border-radius:43%;background:linear-gradient(145deg,#fff0d5,#ffdba6);font-size:clamp(75px,18vw,105px);box-shadow:0 10px 0 rgba(183,126,53,.09);animation:bob 3s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px) rotate(2deg)}}
+h1{font-size:clamp(29px,6.5vw,44px);line-height:1.1;letter-spacing:-1px;margin:15px 0 9px;font-weight:1000}
+.subtitle{color:var(--muted);font-size:clamp(15px,3.7vw,18px);line-height:1.45;margin:0 auto 20px;max-width:520px}
+.menu{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin:24px auto 20px}
+.tile{position:relative;overflow:hidden;border:0;border-radius:26px;padding:17px 9px 19px;min-height:158px;color:var(--ink);box-shadow:var(--shadow);transition:transform .15s,filter .15s}
+.tile:active{transform:scale(.97);filter:saturate(1.08)}
+.tile .emoji{display:block;font-size:clamp(42px,11vw,59px);line-height:1.2;margin-bottom:10px}
+.tile strong{display:block;font-size:clamp(16px,3.7vw,20px);font-weight:950}
+.tile small{display:block;font-size:13px;color:#64768a;margin-top:6px;line-height:1.3}
+.animals{background:#def5d8}.colors{background:#ffe5ed}.numbers{background:#fff0b9}.quiz{background:#e9e1ff}
+.home-note{font-size:13px;color:#8a9aac;margin-top:15px}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:6px 0 18px}
+.small-btn{border:0;border-radius:16px;background:#fff;padding:12px 14px;min-height:46px;box-shadow:var(--shadow);font-weight:850;color:var(--ink)}
+.progress{font-size:14px;color:#718399;font-weight:900;white-space:nowrap}
+.lesson-title{font-size:clamp(27px,6vw,38px);margin:10px 0 7px}
+.lesson-sub{margin-bottom:16px}
+.card{position:relative;max-width:570px;margin:0 auto;background:rgba(255,255,255,.95);border:1px solid #edf3f8;border-radius:31px;padding:18px 13px 21px;box-shadow:0 12px 30px rgba(64,103,139,.08)}
+.picture{display:grid;place-items:center;width:min(62vw,250px);height:min(62vw,250px);min-width:190px;min-height:190px;margin:3px auto 13px;border-radius:36px;background:#edf8ff;font-size:clamp(100px,25vw,150px);user-select:none;cursor:pointer;position:relative;overflow:hidden;transition:background .2s}
+.picture::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 28% 20%,rgba(255,255,255,.65),transparent 35%);pointer-events:none}
+.picture.pop{animation:pop .45s cubic-bezier(.2,.8,.2,1)}
+@keyframes pop{0%{transform:scale(1)}42%{transform:scale(1.10) rotate(-3deg)}72%{transform:scale(.97) rotate(2deg)}100%{transform:scale(1)}}
+.name{font-size:clamp(27px,6vw,36px);font-weight:1000;margin:8px 0}
+.description{font-size:16px;color:var(--muted);min-height:24px;line-height:1.45}
+.count-objects{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:1px;max-width:400px;min-height:55px;margin:9px auto;font-size:clamp(23px,7vw,35px);line-height:1.25}
+.controls{display:flex;align-items:center;justify-content:center;gap:11px;margin-top:15px}
+.arrow{width:57px;height:54px;border:0;border-radius:18px;background:#e8f4ff;box-shadow:var(--shadow);font-size:24px}
+.listen{min-height:54px;border:0;border-radius:18px;background:#ffdf82;padding:13px 19px;font-weight:950;font-size:17px;box-shadow:var(--shadow);color:#574a2c}
+.hint{font-size:13px;color:#8a9aac;margin:17px auto 0}
+.category{font-size:12px;color:#8595a8;font-weight:800;margin-top:4px}
+.shape-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;max-width:440px;margin:17px auto}
+.shape-choice{border:0;border-radius:18px;background:#f0f8ff;min-height:90px;padding:10px 3px;box-shadow:var(--shadow);font-size:38px;color:var(--ink)}
+.shape-choice span{display:block;font-size:12px;font-weight:850;margin-top:5px}
+.quiz-card{max-width:570px;margin:0 auto;background:#fff;border-radius:30px;padding:22px 15px;box-shadow:0 12px 30px rgba(64,103,139,.08)}
+.quiz-mascot{font-size:66px;margin:0 auto 8px;animation:bob 3s ease-in-out infinite}
+.question{font-size:clamp(21px,5vw,27px);font-weight:1000;line-height:1.25;margin:12px auto 17px;max-width:440px}
+.quiz-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:430px;margin:0 auto}
+.option{border:0;border-radius:22px;background:#eef7ff;min-height:120px;font-size:clamp(45px,13vw,66px);box-shadow:var(--shadow);transition:transform .12s}
+.option:active{transform:scale(.96)}
+.option.correct{background:#d9f8d9;animation:pop .4s}
+.option.wrong{background:#ffe0e0;animation:shake .25s}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.feedback{font-size:18px;font-weight:950;min-height:28px;margin:17px 0 8px}
+.next{border:0;border-radius:17px;background:#ffdf82;padding:14px 22px;font-weight:950;box-shadow:var(--shadow);min-height:49px}
+.footer{padding:0 12px 24px;font-size:12px;color:#91a0b1}
+.burst{position:fixed;z-index:10;pointer-events:none;left:50%;top:45%;font-size:27px;animation:burst .75s ease-out forwards}
+@keyframes burst{to{transform:translate(var(--x),var(--y)) scale(.45) rotate(35deg);opacity:0}}
 .hidden{display:none!important}
-@media(max-width:650px){
-  .app{padding:12px 12px 28px}
-  .hero{grid-template-columns:1fr;padding:22px}
-  .hero-art{font-size:95px;grid-row:1}
-  .hero-copy{text-align:center}
-  .hero p{margin-left:auto;margin-right:auto}
-  .menu{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-  .menu-card{min-height:135px}
-  .panel{padding:15px;border-radius:22px}
-  .card-stage{grid-template-columns:38px minmax(0,1fr) 38px;gap:5px}
-  .arrow{width:36px;height:45px;border-radius:12px}
-  .learning-card{min-height:270px;padding:13px}
-  .learning-card h3{font-size:25px}
-  .color-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-  .numbers-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-  .number-card{min-height:72px}
-  .brand p{font-size:12px}
-}
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
-}
+@media(min-width:620px){.menu{gap:18px}.tile{min-height:180px;padding:23px 14px}.tile .emoji{font-size:62px}.picture{width:250px;height:250px}}
+@media(max-width:360px){main{width:calc(100% - 20px)}.tile{min-height:143px;border-radius:22px}.toolbar{gap:5px}.small-btn{padding:10px}.arrow{width:49px}.listen{padding:12px}.card{padding-left:9px;padding-right:9px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
-
 <body>
-<div class="app">
-<header>
-  <div class="brand">
-    <div class="logo" aria-hidden="true">🦊</div>
-    <div>
-      <h1>Мир Лисёнка</h1>
-      <p>Маленькие открытия каждый день!</p>
-    </div>
-  </div>
-  <div class="header-actions">
-    <button class="small-btn" id="voiceToggle" type="button" aria-pressed="true">🔊 Озвучка: вкл.</button>
-    <button class="small-btn" id="soundToggle" type="button" aria-pressed="true">🎵 Звуки: вкл.</button>
-  </div>
+<header class="top">
+ <div class="brand"><span aria-hidden="true">🦊</span>Мир Лисёнка</div>
+ <div class="stars" aria-live="polite">⭐ <span id="score">0</span></div>
 </header>
-
 <main>
-<section class="hero">
-  <div class="hero-copy">
-    <h2>Привет, маленький исследователь! 🌈</h2>
-    <p>Давай узнавать животных, учить цвета, считать и играть. Нажимай на карточки — и начинаем приключение!</p>
-    <button class="primary" type="button" onclick="openSection('animals')">Начать учиться ✨</button>
+ <section id="home" class="view">
+  <div class="hero">
+   <div class="mascot" aria-hidden="true">🦊</div>
+   <h1>Привет, малыш!</h1>
+   <p class="subtitle">Давай учиться и играть вместе!</p>
   </div>
-  <div class="hero-art" aria-hidden="true">🦊🌟</div>
-</section>
+  <div class="menu">
+   <button class="tile animals" data-open="animals"><span class="emoji">🐶</span><strong>Животные</strong><small>Кто как говорит?</small></button>
+   <button class="tile colors" data-open="colors"><span class="emoji">🎨</span><strong>Цвета и формы</strong><small>Изучаем окружающий мир</small></button>
+   <button class="tile numbers" data-open="numbers"><span class="emoji">🔢</span><strong>Цифры</strong><small>Считаем от 1 до 15</small></button>
+   <button class="tile quiz" data-open="quiz"><span class="emoji">🎁</span><strong>Мини-викторина</strong><small>Проверяем, что узнали</small></button>
+  </div>
+  <p class="home-note">🌈 Каждый день — новые открытия! Лучше играть вместе со взрослым.</p>
+ </section>
 
-<h2 class="section-title">Что будем изучать?</h2>
-<section class="menu" aria-label="Разделы обучения">
-  <button class="menu-card bg-orange" onclick="openSection('animals')">
-    <span class="emoji">🐻</span><strong>Животные</strong><span>Кто как говорит?</span>
-  </button>
-  <button class="menu-card bg-pink" onclick="openSection('colors')">
-    <span class="emoji">🎨</span><strong>Цвета и фигуры</strong><span>Учимся различать</span>
-  </button>
-  <button class="menu-card bg-blue" onclick="openSection('numbers')">
-    <span class="emoji">🔢</span><strong>Числа</strong><span>Считаем до 15</span>
-  </button>
-  <button class="menu-card bg-green" onclick="openSection('quiz')">
-    <span class="emoji">🏆</span><strong>Викторина</strong><span>Проверим знания</span>
-  </button>
-</section>
+ <section id="lesson" class="view hidden">
+  <div class="toolbar">
+   <button class="small-btn" id="goHome">← Домой</button>
+   <span class="progress" id="progress">1 / 50</span>
+   <button class="small-btn" id="repeat" aria-label="Повторить озвучку">🔊</button>
+  </div>
+  <h1 class="lesson-title" id="lessonTitle">Животные</h1>
+  <p class="subtitle lesson-sub" id="lessonSub">Нажми на картинку и послушай!</p>
+  <div class="card">
+   <div id="picture" class="picture" role="button" tabindex="0" aria-label="Нажми на картинку">🐶</div>
+   <div class="name" id="itemName">Собачка</div>
+   <div class="description" id="itemDescription"></div>
+   <div id="countObjects" class="count-objects"></div>
+   <div id="shapeGrid" class="shape-grid hidden"></div>
+   <div class="controls">
+    <button class="arrow" id="prev" aria-label="Предыдущее">⬅️</button>
+    <button class="listen" id="listen">🔊 Слушать</button>
+    <button class="arrow" id="next" aria-label="Следующее">➡️</button>
+   </div>
+  </div>
+  <p class="hint" id="hint">Нажми на картинку!</p>
+ </section>
 
-<section class="panel" id="animals">
-  <div class="panel-top">
-    <h2>🐾 Мир животных</h2>
-    <button class="back-btn" onclick="goHome()">← На главную</button>
+ <section id="quizSection" class="view hidden">
+  <div class="toolbar">
+   <button class="small-btn" id="quizHome">← Домой</button>
+   <span class="progress" id="quizProgress">1 / 10</span>
+   <button class="small-btn" id="repeatQuestion" aria-label="Повторить задание">🔊</button>
   </div>
-  <p>Смотри на картинку, слушай название и повторяй!</p>
-  <div class="filters" id="animalFilters"></div>
-  <div class="card-stage">
-    <button class="arrow" aria-label="Предыдущее животное" onclick="moveAnimal(-1)">‹</button>
-    <div class="learning-card">
-      <div class="big-emoji" id="animalEmoji">🐶</div>
-      <h3 id="animalName">Собака</h3>
-      <p id="animalSound">Собака говорит: гав-гав!</p>
-      <button class="speak-btn" onclick="speakAnimal()">🔊 Послушать</button>
-    </div>
-    <button class="arrow" aria-label="Следующее животное" onclick="moveAnimal(1)">›</button>
+  <h1 class="lesson-title">Играем и узнаём!</h1>
+  <p class="subtitle">Помоги Лисёнку найти правильный ответ.</p>
+  <div class="quiz-card">
+   <div class="quiz-mascot" aria-hidden="true">🦊</div>
+   <div class="question" id="question">Найди собачку!</div>
+   <div class="quiz-options" id="options"></div>
+   <div class="feedback" id="feedback" aria-live="polite"></div>
+   <button class="next hidden" id="nextQuestion">Дальше ➜</button>
   </div>
-  <div class="progress"><div class="progress-fill" id="animalProgress"></div></div>
-  <div class="progress-label" id="animalCount">1 из 50</div>
-</section>
-
-<section class="panel" id="colors">
-  <div class="panel-top">
-    <h2>🎨 Цвета и фигуры</h2>
-    <button class="back-btn" onclick="goHome()">← На главную</button>
-  </div>
-  <p>Нажми на карточку, чтобы узнать её название.</p>
-  <div class="filters">
-    <button class="filter active" onclick="showColorMode('colors',this)">Цвета</button>
-    <button class="filter" onclick="showColorMode('shapes',this)">Фигуры</button>
-  </div>
-  <div class="color-grid" id="colorGrid"></div>
-</section>
-
-<section class="panel" id="numbers">
-  <div class="panel-top">
-    <h2>🔢 Учим числа</h2>
-    <button class="back-btn" onclick="goHome()">← На главную</button>
-  </div>
-  <p>Нажми на число. Послушай, как оно называется!</p>
-  <div class="numbers-grid" id="numbersGrid"></div>
-</section>
-
-<section class="panel" id="quiz">
-  <div class="panel-top">
-    <h2>🏆 Весёлая викторина</h2>
-    <button class="back-btn" onclick="goHome()">← На главную</button>
-  </div>
-  <div class="quiz-box" id="quizPlay">
-    <div class="quiz-status"><span id="quizCount">Вопрос 1 из 10</span><span id="quizScore">⭐ 0</span></div>
-    <div class="progress"><div class="progress-fill" id="quizProgress"></div></div>
-    <div class="quiz-question">
-      <div class="quiz-emoji" id="quizEmoji">🐶</div>
-      <h3 id="quizQuestion">Кто говорит «гав-гав»?</h3>
-    </div>
-    <div class="answers" id="quizAnswers"></div>
-    <div class="feedback" id="quizFeedback" aria-live="polite"></div>
-    <button class="primary hidden" id="nextQuestion" onclick="nextQuizQuestion()">Следующий вопрос →</button>
-  </div>
-  <div class="result hidden" id="quizResult">
-    <div class="result-emoji" id="resultEmoji">🎉</div>
-    <h3 id="resultTitle">Молодец!</h3>
-    <p id="resultText"></p>
-    <button class="primary" onclick="startQuiz()">Играть ещё раз 🔄</button>
-  </div>
-</section>
-
-<section class="panel" id="progressPanel">
-  <h2>⭐ Мои успехи</h2>
-  <p id="savedProgress">Ты уже начал своё путешествие!</p>
-</section>
+ </section>
 </main>
-
-<footer>🦊 Мир Лисёнка · Учимся играя · Для маленьких исследователей</footer>
-</div>
+<footer class="footer">Без регистрации • Без платных сервисов • Играйте вместе со взрослыми</footer>
 
 <script>
 "use strict";
+const $ = id => document.getElementById(id);
 
-/* ---------- Настройки звука и озвучки ---------- */
-let voiceEnabled = true;
-let soundEnabled = true;
-let ruVoice = null;
-let audioContext = null;
+const animalData = [
+["Собачка","🐶","Гав-гав!","Домашние"],
+["Кошечка","🐱","Мяу-мяу!","Домашние"],
+["Корова","🐮","Му-у-у!","Домашние"],
+["Лошадка","🐴","И-го-го!","Домашние"],
+["Овечка","🐑","Бе-е-е!","Домашние"],
+["Козочка","🐐","Ме-е-е!","Домашние"],
+["Свинка","🐷","Хрю-хрю!","Домашние"],
+["Курочка","🐔","Ко-ко-ко!","Домашние"],
+["Петушок","🐓","Ку-ка-ре-ку!","Домашние"],
+["Уточка","🦆","Кря-кря!","Домашние"],
+["Гусь","🪿","Га-га-га!","Домашние"],
+["Кролик","🐰","Кролик тихонько шуршит.","Домашние"],
+["Ослик","🫏","И-а-а!","Домашние"],
+["Индюк","🦃","Гулко булькает.","Домашние"],
+["Мышка","🐭","Пи-пи!","Домашние"],
+["Хомячок","🐹","Тихонько пищит.","Домашние"],
+["Попугай","🦜","Чирик-чирик!","Домашние"],
+["Канарейка","🐤","Чик-чирик!","Домашние"],
+["Лев","🦁","Р-р-р!","Дикие"],
+["Тигр","🐯","Р-р-р!","Дикие"],
+["Слон","🐘","Тру-у-у!","Дикие"],
+["Обезьянка","🐵","У-а-а!","Дикие"],
+["Волк","🐺","Ау-у-у!","Дикие"],
+["Лисичка","🦊","Тяв-тяв!","Дикие"],
+["Медведь","🐻","Р-р-р!","Дикие"],
+["Заяц","🐇","Заяц тихо шуршит.","Дикие"],
+["Белочка","🐿️","Цок-цок!","Дикие"],
+["Ёжик","🦔","Фыр-фыр!","Дикие"],
+["Олень","🦌","Фыр-р!","Дикие"],
+["Жираф","🦒","Тихонько фыркает.","Дикие"],
+["Зебра","🦓","И-го-го!","Дикие"],
+["Бегемот","🦛","Громко фыркает.","Дикие"],
+["Носорог","🦏","Фыр-р!","Дикие"],
+["Панда","🐼","У-у-у!","Дикие"],
+["Кенгуру","🦘","Тихонько фыркает.","Дикие"],
+["Коала","🐨","Кричит и рычит.","Дикие"],
+["Верблюд","🐫","У-у-у!","Дикие"],
+["Крокодил","🐊","Р-р-р!","Дикие"],
+["Черепаха","🐢","Тихонько шуршит.","Другие"],
+["Змея","🐍","Ш-ш-ш!","Другие"],
+["Дельфин","🐬","Свистит и щёлкает.","Водные"],
+["Кит","🐳","Поёт глубоким голосом.","Водные"],
+["Тюлень","🦭","Арр-арр!","Водные"],
+["Рыбка","🐠","Буль-буль!","Водные"],
+["Сова","🦉","У-у-у!","Птицы"],
+["Ворона","🐦‍⬛","Кар-кар!","Птицы"],
+["Воробей","🐦","Чик-чирик!","Птицы"],
+["Пингвин","🐧","Кричит громко.","Птицы"],
+["Лягушка","🐸","Ква-ква!","Другие"],
+["Пчёлка","🐝","Ж-ж-ж!","Другие"]
+].map(([name,emoji,voice,group])=>({name,emoji,voice,group}));
 
-const voiceToggle = document.getElementById("voiceToggle");
-const soundToggle = document.getElementById("soundToggle");
+const colorData = [
+ {name:"Красный",emoji:"🔴",desc:"Это красный цвет!",color:"#ffe7e7"},
+ {name:"Синий",emoji:"🔵",desc:"Это синий цвет!",color:"#e3f0ff"},
+ {name:"Жёлтый",emoji:"🟡",desc:"Это жёлтый цвет!",color:"#fff4c5"},
+ {name:"Зелёный",emoji:"🟢",desc:"Это зелёный цвет!",color:"#e3f8df"},
+ {name:"Оранжевый",emoji:"🟠",desc:"Это оранжевый цвет!",color:"#ffead9"},
+ {name:"Розовый",emoji:"🩷",desc:"Это розовый цвет!",color:"#ffe5f1"},
+ {name:"Фиолетовый",emoji:"🟣",desc:"Это фиолетовый цвет!",color:"#eee5ff"},
+ {name:"Белый",emoji:"⚪",desc:"Это белый цвет!",color:"#f2f5f8"},
+ {name:"Чёрный",emoji:"⚫",desc:"Это чёрный цвет!",color:"#e5e5e5"},
+ {name:"Круг",emoji:"🔵",desc:"Круг круглый. У него нет уголков!",color:"#e5f3ff"},
+ {name:"Квадрат",emoji:"🟦",desc:"У квадрата четыре стороны!",color:"#e2f5e1"},
+ {name:"Треугольник",emoji:"🔺",desc:"У треугольника три уголка!",color:"#fff0cf"},
+ {name:"Звезда",emoji:"⭐",desc:"Это звёздочка!",color:"#fff2b5"},
+ {name:"Сердце",emoji:"❤️",desc:"Это красное сердечко!",color:"#ffe6ed"},
+ {name:"Овал",emoji:"🥚",desc:"Овал похож на яйцо!",color:"#f6e9ff"}
+];
 
-function loadVoice(){
-  if(!("speechSynthesis" in window)) return;
-  const voices = speechSynthesis.getVoices();
-  ruVoice = voices.find(v => v.lang && v.lang.toLowerCase() === "ru-ru")
-    || voices.find(v => v.lang && v.lang.toLowerCase().startsWith("ru"))
-    || null;
-}
-if("speechSynthesis" in window){
-  loadVoice();
-  speechSynthesis.onvoiceschanged = loadVoice;
+const numberData=Array.from({length:15},(_,i)=>({
+ name:String(i+1),
+ emoji:["🍎","⭐","🧸","🍐","🚗"][i%5],
+ desc:"Давай посчитаем!",
+ count:i+1
+}));
+
+let mode="animals",index=0,score=0,quizIndex=0,quizScore=0,quizQuestions=[],quizLocked=false,audioCtx=null;
+
+function showView(id){
+ ["home","lesson","quizSection"].forEach(k=>$(k).classList.toggle("hidden",k!==id));
+ window.scrollTo({top:0,behavior:"smooth"});
 }
 
 function speak(text){
-  if(!voiceEnabled || !("speechSynthesis" in window)) return;
-  try{
-    speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(String(text));
-    utterance.lang = "ru-RU";
-    utterance.rate = 0.82;
-    utterance.pitch = 1.08;
-    if(ruVoice) utterance.voice = ruVoice;
-    speechSynthesis.speak(utterance);
-  }catch(e){}
+ if(!("speechSynthesis" in window)){
+  if($("hint"))setHint("Озвучка не поддерживается этим браузером.");
+  return;
+ }
+ window.speechSynthesis.cancel();
+ const u=new SpeechSynthesisUtterance(String(text));
+ u.lang="ru-RU";
+ u.rate=.82;
+ u.pitch=1.12;
+ u.volume=1;
+ window.speechSynthesis.speak(u);
 }
 
-function beep(frequency=520,duration=0.09,type="sine"){
-  if(!soundEnabled) return;
-  try{
-    const AudioCtx = window.AudioContext || window.webkitAudioContext;
-    if(!AudioCtx) return;
-    if(!audioContext) audioContext = new AudioCtx();
-    if(audioContext.state === "suspended") audioContext.resume();
-    const oscillator = audioContext.createOscillator();
-    const gain = audioContext.createGain();
-    oscillator.type = type;
-    oscillator.frequency.value = frequency;
-    gain.gain.setValueAtTime(0.0001,audioContext.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.12,audioContext.currentTime+0.015);
-    gain.gain.exponentialRampToValueAtTime(0.0001,audioContext.currentTime+duration);
-    oscillator.connect(gain);
-    gain.connect(audioContext.destination);
-    oscillator.start();
-    oscillator.stop(audioContext.currentTime+duration+0.02);
-  }catch(e){}
-}
-function happySound(){
-  beep(523,0.1);
-  setTimeout(()=>beep(659,0.1),100);
-  setTimeout(()=>beep(784,0.15),200);
-}
-voiceToggle.addEventListener("click",()=>{
-  voiceEnabled=!voiceEnabled;
-  voiceToggle.textContent=voiceEnabled?"🔊 Озвучка: вкл.":"🔇 Озвучка: выкл.";
-  voiceToggle.setAttribute("aria-pressed",String(voiceEnabled));
-  if(!voiceEnabled && "speechSynthesis" in window) speechSynthesis.cancel();
-  beep(500,0.07);
-});
-soundToggle.addEventListener("click",()=>{
-  soundEnabled=!soundEnabled;
-  soundToggle.textContent=soundEnabled?"🎵 Звуки: вкл.":"🔕 Звуки: выкл.";
-  soundToggle.setAttribute("aria-pressed",String(soundEnabled));
-  beep(520,0.07);
-});
-
-/* ---------- Навигация ---------- */
-const sectionIds=["animals","colors","numbers","quiz","progressPanel"];
-function openSection(id){
-  sectionIds.forEach(s=>document.getElementById(s).classList.toggle("active",s===id));
-  document.getElementById(id).scrollIntoView({behavior:"smooth",block:"start"});
-  beep(600,0.07);
-  if(id==="animals") renderAnimal();
-  if(id==="quiz" && quizQuestions.length===0) startQuiz();
-}
-function goHome(){
-  sectionIds.forEach(s=>document.getElementById(s).classList.remove("active"));
-  window.scrollTo({top:0,behavior:"smooth"});
-  beep(420,0.07);
+function playTone(freq=440,duration=.12,type="sine",volume=.09){
+ try{
+  const AudioContextClass=window.AudioContext||window.webkitAudioContext;
+  if(!AudioContextClass)return;
+  audioCtx ||= new AudioContextClass();
+  if(audioCtx.state==="suspended")audioCtx.resume();
+  const now=audioCtx.currentTime;
+  const o=audioCtx.createOscillator();
+  const g=audioCtx.createGain();
+  o.type=type;
+  o.frequency.setValueAtTime(freq,now);
+  g.gain.setValueAtTime(.001,now);
+  g.gain.linearRampToValueAtTime(volume,now+.015);
+  g.gain.exponentialRampToValueAtTime(.001,now+duration);
+  o.connect(g);
+  g.connect(audioCtx.destination);
+  o.start(now);
+  o.stop(now+duration+.02);
+ }catch(_){}
 }
 
-/* ---------- Животные ---------- */
-const animals=[
-["🐶","Собака","Гав-гав!","Домашние"],
-["🐱","Кошка","Мяу-мяу!","Домашние"],
-["🐮","Корова","Му-у!","Домашние"],
-["🐷","Свинья","Хрю-хрю!","Домашние"],
-["🐑","Овечка","Бе-е!","Домашние"],
-["🐐","Коза","Ме-е!","Домашние"],
-["🐴","Лошадь","И-го-го!","Домашние"],
-["🐔","Курица","Ко-ко-ко!","Домашние"],
-["🐓","Петух","Ку-ка-ре-ку!","Домашние"],
-["🦆","Утка","Кря-кря!","Домашние"],
-["🪿","Гусь","Га-га-га!","Домашние"],
-["🐰","Кролик","Прыг-прыг!","Домашние"],
-["🐭","Мышка","Пи-пи!","Домашние"],
-["🐹","Хомяк","Шур-шур!","Домашние"],
-["🦜","Попугай","Чик-чирик!","Домашние"],
-["🐢","Черепаха","Медленно-медленно!","Домашние"],
-["🦁","Лев","Р-р-р!","Дикие"],
-["🐯","Тигр","Р-р-р!","Дикие"],
-["🐻","Медведь","Р-р-р!","Дикие"],
-["🐺","Волк","Ау-у!","Дикие"],
-["🦊","Лиса","Тяв-тяв!","Дикие"],
-["🐘","Слон","Ту-у!","Дикие"],
-["🦒","Жираф","Хрум-хрум!","Дикие"],
-["🦓","Зебра","И-го-го!","Дикие"],
-["🦌","Олень","Топ-топ!","Дикие"],
-["🐗","Кабан","Хрю-хрю!","Дикие"],
-["🐿️","Белка","Цок-цок!","Дикие"],
-["🦔","Ёжик","Фыр-фыр!","Дикие"],
-["🐸","Лягушка","Ква-ква!","Дикие"],
-["🐒","Обезьяна","У-а-а!","Дикие"],
-["🐊","Крокодил","Р-р-р!","Дикие"],
-["🐍","Змея","Ш-ш-ш!","Дикие"],
-["🦉","Сова","У-ху-у!","Птицы"],
-["🦅","Орёл","Крик орла!","Птицы"],
-["🐧","Пингвин","Кря-кря!","Птицы"],
-["🦚","Павлин","Крик павлина!","Птицы"],
-["🦩","Фламинго","Крик птицы!","Птицы"],
-["🐬","Дельфин","И-и-и!","Морские"],
-["🐳","Кит","У-у-у!","Морские"],
-["🦈","Акула","Большая рыба!","Морские"],
-["🐙","Осьминог","Житель моря!","Морские"],
-["🦀","Краб","Щёлк-щёлк!","Морские"],
-["🐠","Рыбка","Буль-буль!","Морские"],
-["🦭","Тюлень","У-а-а!","Морские"],
-["🦦","Выдра","Плюх-плюх!","Морские"],
-["🐪","Верблюд","Топ-топ!","Дикие"],
-["🦘","Кенгуру","Прыг-прыг!","Дикие"],
-["🐼","Панда","Хрум-хрум!","Дикие"],
-["🦥","Ленивец","Тихо-тихо!","Дикие"],
-["🦛","Бегемот","Плюх-плюх!","Дикие"]
+function clickSound(){playTone(540,.055,"sine",.045);}
+
+function sparkle(){
+ const icons=["⭐","✨","🌟","💛","🎉","💫"];
+ for(let i=0;i<7;i++){
+  const el=document.createElement("span");
+  el.className="burst";
+  el.textContent=icons[i%icons.length];
+  el.style.setProperty("--x",(Math.random()*220-110)+"px");
+  el.style.setProperty("--y",(Math.random()*180-120)+"px");
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(),800);
+ }
+}
+
+function reward(){
+ score++;
+ $("score").textContent=score;
+ playTone(660,.12);
+ setTimeout(()=>playTone(880,.16),100);
+ sparkle();
+}
+
+function setHint(text){$("hint").textContent=text;}
+
+function openLesson(which){
+ mode=which;
+ index=0;
+ showView("lesson");
+ const titles={
+  animals:"Животные и голоса",
+  colors:"Цвета и формы",
+  numbers:"Учим цифры"
+ };
+ const subs={
+  animals:"Нажми на животное и послушай!",
+  colors:"Посмотри, нажми и послушай!",
+  numbers:"Считаем вместе от 1 до 15!"
+ };
+ $("lessonTitle").textContent=titles[mode];
+ $("lessonSub").textContent=subs[mode];
+ renderCard();
+}
+
+function getData(){
+ return mode==="animals"?animalData:mode==="colors"?colorData:numberData;
+}
+
+function renderCard(){
+ const data=getData();
+ const item=data[index];
+ const p=$("picture");
+ $("progress").textContent=(index+1)+" / "+data.length;
+ p.textContent=item.emoji;
+ p.style.background=mode==="colors"?item.color:"#edf8ff";
+ $("itemName").textContent=mode==="numbers"?"Цифра "+item.name:item.name;
+ $("itemDescription").textContent=mode==="animals"
+  ?"Послушай: "+item.voice
+  :mode==="numbers"?"Это число "+item.name:item.desc;
+ $("countObjects").textContent=mode==="numbers"
+  ?Array.from({length:item.count},()=>item.emoji).join(" ")
+  :"";
+ $("shapeGrid").classList.add("hidden");
+ setHint(mode==="animals"
+  ?item.group+" • нажми на картинку"
+  :"Нажми на картинку, чтобы повторить");
+}
+
+function move(dir){
+ index=(index+dir+getData().length)%getData().length;
+ clickSound();
+ renderCard();
+}
+
+function popPicture(){
+ const p=$("picture");
+ p.classList.remove("pop");
+ void p.offsetWidth;
+ p.classList.add("pop");
+}
+
+function activateCard(){
+ const item=getData()[index];
+ popPicture();
+
+ if(mode==="animals"){
+  speak(item.name+". "+item.voice);
+  animalEffect(item.name);
+ }else if(mode==="colors"){
+  speak(item.desc);
+  playTone([410,470,530,590,650,700,740,780,350,500,550,600,720,680,520][index],.18,"sine");
+ }else{
+  speak("Цифра "+item.name+". Давай посчитаем! "+
+   Array.from({length:item.count},(_,i)=>i+1).join(", "));
+  playTone(400+index*22,.18,"triangle");
+ }
+}
+
+function animalEffect(name){
+ // Игровой звуковой акцент, а не настоящая запись животного.
+ const freq={
+  "Собачка":190,"Кошечка":720,"Корова":100,"Лошадка":260,
+  "Овечка":380,"Козочка":340,"Свинка":170,"Курочка":650,
+  "Петушок":800,"Уточка":500,"Гусь":300,"Лягушка":180,
+  "Лев":90,"Тигр":110,"Волк":240,"Мышка":900,"Пчёлка":250,
+  "Сова":330,"Змея":750,"Дельфин":1000
+ };
+ const f=freq[name]||320;
+ playTone(f,.15,name==="Змея"?"sawtooth":"triangle",.06);
+ setTimeout(()=>playTone(f*.72,.13,"triangle",.05),135);
+}
+
+function home(){
+ if("speechSynthesis" in window)window.speechSynthesis.cancel();
+ showView("home");
+}
+
+const questionBank=[
+ {text:"Кто говорит «гав-гав»?",answer:"Собачка",options:[["🐶","Собачка"],["🐱","Кошечка"],["🐮","Корова"],["🦆","Уточка"]]},
+ {text:"Найди красный цвет!",answer:"Красный",options:[["🔵","Синий"],["🔴","Красный"],["🟢","Зелёный"],["🟡","Жёлтый"]]},
+ {text:"Сколько здесь яблок?",answer:"3",options:[["🍎","1"],["🍎🍎","2"],["🍎🍎🍎","3"],["🍎🍎🍎🍎","4"]]},
+ {text:"Кто говорит «мяу-мяу»?",answer:"Кошечка",options:[["🐶","Собачка"],["🐱","Кошечка"],["🐴","Лошадка"],["🐑","Овечка"]]},
+ {text:"Найди синий круг!",answer:"Синий круг",options:[["🔺","Треугольник"],["🟩","Квадрат"],["🔵","Синий круг"],["⭐","Звезда"]]},
+ {text:"Покажи цифру 2!",answer:"2",options:[["1️⃣","1"],["2️⃣","2"],["3️⃣","3"],["4️⃣","4"]]},
+ {text:"Кто говорит «му-у-у»?",answer:"Корова",options:[["🐷","Свинка"],["🐮","Корова"],["🐔","Курочка"],["🐱","Кошечка"]]},
+ {text:"Найди жёлтый цвет!",answer:"Жёлтый",options:[["🟣","Фиолетовый"],["🟡","Жёлтый"],["🔵","Синий"],["🟢","Зелёный"]]},
+ {text:"Сколько здесь машин?",answer:"2",options:[["🚗","1"],["🚗🚗","2"],["🚗🚗🚗","3"],["🚗🚗🚗🚗","4"]]},
+ {text:"Найди треугольник!",answer:"Треугольник",options:[["⚪","Круг"],["🟦","Квадрат"],["🔺","Треугольник"],["⭐","Звезда"]]},
+ {text:"Найди уточку!",answer:"Уточка",options:[["🦆","Уточка"],["🐱","Кошечка"],["🐴","Лошадка"],["🐸","Лягушка"]]},
+ {text:"Покажи число 3!",answer:"3",options:[["1️⃣","1"],["3️⃣","3"],["5️⃣","5"],["2️⃣","2"]]}
 ];
-let animalCategory="Все";
-let animalIndex=0;
-let shownAnimals=animals.slice();
-const animalFilters=document.getElementById("animalFilters");
 
-function buildAnimalFilters(){
-  const categories=["Все","Домашние","Дикие","Птицы","Морские"];
-  animalFilters.innerHTML="";
-  categories.forEach(category=>{
-    const button=document.createElement("button");
-    button.className="filter"+(category===animalCategory?" active":"");
-    button.textContent=category;
-    button.addEventListener("click",()=>{
-      animalCategory=category;
-      animalIndex=0;
-      shownAnimals=category==="Все"?animals:animals.filter(a=>a[3]===category);
-      buildAnimalFilters();
-      renderAnimal();
-      beep(450,0.06);
-    });
-    animalFilters.appendChild(button);
-  });
+function shuffle(arr){
+ const a=[...arr];
+ for(let i=a.length-1;i>0;i--){
+  const j=Math.floor(Math.random()*(i+1));
+  [a[i],a[j]]=[a[j],a[i]];
+ }
+ return a;
 }
-function renderAnimal(){
-  if(!shownAnimals.length) return;
-  const a=shownAnimals[animalIndex];
-  document.getElementById("animalEmoji").textContent=a[0];
-  document.getElementById("animalName").textContent=a[1];
-  document.getElementById("animalSound").textContent=a[1]+" говорит: "+a[2];
-  document.getElementById("animalCount").textContent=(animalIndex+1)+" из "+shownAnimals.length;
-  document.getElementById("animalProgress").style.width=((animalIndex+1)/shownAnimals.length*100)+"%";
-}
-function moveAnimal(step){
-  animalIndex=(animalIndex+step+shownAnimals.length)%shownAnimals.length;
-  renderAnimal();
-  beep(500,0.07);
-}
-function speakAnimal(){
-  const a=shownAnimals[animalIndex];
-  speak(a[1]+". "+a[1]+" говорит: "+a[2]);
-  beep(620,0.08);
-}
-buildAnimalFilters();
-renderAnimal();
 
-/* ---------- Цвета и фигуры ---------- */
-const colorData=[
-["Красный","#ff595e","🔴"],
-["Оранжевый","#ff9f43","🟠"],
-["Жёлтый","#ffd93d","🟡"],
-["Зелёный","#52c878","🟢"],
-["Голубой","#63c7f2","🔵"],
-["Синий","#4776e6","🔵"],
-["Фиолетовый","#a879e8","🟣"],
-["Розовый","#ff8eae","🩷"],
-["Белый","#ffffff","⚪"],
-["Чёрный","#34313a","⚫"],
-["Коричневый","#9a633f","🟤"],
-["Серый","#a7a7b0","⚪"]
-];
-const shapeData=[
-["Круг","circle","🔴"],
-["Квадрат","square","🟦"],
-["Треугольник","triangle","🔺"],
-["Прямоугольник","rectangle","🟪"],
-["Звезда","star","⭐"],
-["Сердце","heart","❤️"],
-["Овал","oval","🥚"],
-["Ромб","diamond","🔶"],
-["Полумесяц","moon","🌙"],
-["Пятиугольник","pentagon","⬟"]
-];
-let colorMode="colors";
-function showColorMode(mode,button){
-  colorMode=mode;
-  document.querySelectorAll("#colors .filter").forEach(b=>b.classList.remove("active"));
-  if(button) button.classList.add("active");
-  renderColorGrid();
+function openQuiz(){
+ quizQuestions=shuffle(questionBank).slice(0,10);
+ quizIndex=0;
+ quizScore=0;
+ quizLocked=false;
+ showView("quizSection");
+ $("nextQuestion").textContent="Дальше ➜";
+ renderQuiz();
 }
-function renderColorGrid(){
-  const grid=document.getElementById("colorGrid");
-  grid.innerHTML="";
-  if(colorMode==="colors"){
-    colorData.forEach(item=>{
-      const [name,color,emoji]=item;
-      const b=document.createElement("button");
-      b.className="color-card";
-      b.innerHTML='<span class="color-dot" style="background:'+color+'"></span><span></span>';
-      b.querySelector("span:last-child").textContent=name;
-      if(name==="Белый") b.querySelector(".color-dot").style.borderColor="#cfc5da";
-      b.addEventListener("click",()=>{speak(name);beep(550,0.08);});
-      b.setAttribute("aria-label",name);
-      grid.appendChild(b);
-    });
-  }else{
-    shapeData.forEach(([name,shape,emoji])=>{
-      const b=document.createElement("button");
-      b.className="color-card";
-      let symbol;
-      if(shape==="circle") symbol='<span class="shape-dot" style="border-radius:50%;background:#ff9b9b"></span>';
-      else if(shape==="square") symbol='<span class="shape-dot" style="background:#79c9f7"></span>';
-      else if(shape==="triangle") symbol='<span class="shape-dot" style="background:#9a83f7;clip-path:polygon(50% 0,0 100%,100% 100%)"></span>';
-      else if(shape==="rectangle") symbol='<span class="shape-dot" style="width:55px;height:35px;margin-top:7px;background:#73d6a1"></span>';
-      else if(shape==="star") symbol='<span class="shape-dot" style="font-size:48px;line-height:48px">⭐</span>';
-      else if(shape==="heart") symbol='<span class="shape-dot" style="font-size:45px;line-height:48px">❤️</span>';
-      else if(shape==="oval") symbol='<span class="shape-dot" style="border-radius:50%;background:#ffca72;width:38px"></span>';
-      else if(shape==="diamond") symbol='<span class="shape-dot" style="background:#ff9c45;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)"></span>';
-      else if(shape==="moon") symbol='<span class="shape-dot" style="font-size:45px;line-height:48px">🌙</span>';
-      else symbol='<span class="shape-dot" style="font-size:45px;line-height:48px">⬟</span>';
-      b.innerHTML=symbol+'<span></span>';
-      b.querySelector("span:last-child").textContent=name;
-      b.addEventListener("click",()=>{speak(name);beep(560,0.08);});
-      b.setAttribute("aria-label",name);
-      grid.appendChild(b);
-    });
-  }
-}
-renderColorGrid();
 
-/* ---------- Числа ---------- */
-const numberWords=["ноль","один","два","три","четыре","пять","шесть","семь","восемь","девять","десять","одиннадцать","двенадцать","тринадцать","четырнадцать","пятнадцать"];
-function renderNumbers(){
-  const grid=document.getElementById("numbersGrid");
-  grid.innerHTML="";
-  for(let n=1;n<=15;n++){
-    const b=document.createElement("button");
-    b.className="number-card";
-    b.textContent=n;
-    b.setAttribute("aria-label","Число "+n);
-    b.addEventListener("click",()=>{
-      speak(numberWords[n]);
-      beep(380+n*28,0.09);
-      b.animate([{transform:"scale(1)"},{transform:"scale(1.12)"},{transform:"scale(1)"}],{duration:220});
-    });
-    grid.appendChild(b);
-  }
-}
-renderNumbers();
+function renderQuiz(){
+ quizLocked=false;
+ const q=quizQuestions[quizIndex];
+ $("quizProgress").textContent=(quizIndex+1)+" / "+quizQuestions.length;
+ $("question").textContent=q.text;
+ $("feedback").textContent="";
+ $("nextQuestion").classList.add("hidden");
+ $("nextQuestion").textContent="Дальше ➜";
+ const box=$("options");
+ box.innerHTML="";
 
-/* ---------- Викторина ---------- */
-const quizBank=[
-{emoji:"🐶",q:"Кто говорит «гав-гав»?",a:["Кошка","Собака","Корова","Утка"],correct:"Собака"},
-{emoji:"🐱",q:"Кто говорит «мяу-мяу»?",a:["Кошка","Лошадь","Овечка","Курица"],correct:"Кошка"},
-{emoji:"🐮",q:"Кто говорит «му-у»?",a:["Свинья","Коза","Корова","Собака"],correct:"Корова"},
-{emoji:"🦁",q:"Кто из этих животных — лев?",a:["🐰 Заяц","🦁 Лев","🐸 Лягушка","🐟 Рыба"],correct:"🦁 Лев"},
-{emoji:"🍋",q:"Какого цвета лимон?",a:["Синий","Зелёный","Жёлтый","Розовый"],correct:"Жёлтый"},
-{emoji:"🍓",q:"Какого цвета спелая клубника?",a:["Красный","Фиолетовый","Голубой","Чёрный"],correct:"Красный"},
-{emoji:"🔵",q:"Какая фигура круглая?",a:["Круг","Квадрат","Треугольник","Прямоугольник"],correct:"Круг"},
-{emoji:"⭐",q:"Что это за фигура?",a:["Круг","Звезда","Овал","Квадрат"],correct:"Звезда"},
-{emoji:"1️⃣",q:"Какое число идёт после двух?",a:["Один","Четыре","Три","Пять"],correct:"Три"},
-{emoji:"🔢",q:"Сколько будет 2 + 1?",a:["Два","Три","Четыре","Один"],correct:"Три"},
-{emoji:"🐘",q:"У кого большой хобот?",a:["Слон","Кошка","Лиса","Кролик"],correct:"Слон"},
-{emoji:"🐟",q:"Кто живёт в воде?",a:["Лошадь","Курица","Рыба","Котёнок"],correct:"Рыба"},
-{emoji:"🌙",q:"Что мы часто видим ночью на небе?",a:["Луну","Арбуз","Стул","Ботинок"],correct:"Луну"},
-{emoji:"🐸",q:"Кто прыгает и говорит «ква-ква»?",a:["Лягушка","Слон","Петух","Олень"],correct:"Лягушка"},
-{emoji:"🐑",q:"Кто говорит «бе-е»?",a:["Утка","Овечка","Кошка","Волк"],correct:"Овечка"},
-{emoji:"🍎",q:"Что можно съесть?",a:["Яблоко","Мяч","Башмак","Кубик"],correct:"Яблоко"},
-{emoji:"🚗",q:"На чём ездят по дороге?",a:["Машина","Облако","Рыба","Звезда"],correct:"Машина"},
-{emoji:"🐧",q:"Какая птица умеет плавать и не умеет летать?",a:["Пингвин","Орёл","Воробей","Попугай"],correct:"Пингвин"}
-];
-let quizQuestions=[];
-let quizIndex=0;
-let quizScore=0;
-let answered=false;
-function shuffle(list){
-  const copy=list.slice();
-  for(let i=copy.length-1;i>0;i--){
-    const j=Math.floor(Math.random()*(i+1));
-    [copy[i],copy[j]]=[copy[j],copy[i]];
-  }
-  return copy;
+ shuffle(q.options).forEach(([emoji,label])=>{
+  const b=document.createElement("button");
+  b.className="option";
+  b.textContent=emoji;
+  b.setAttribute("aria-label",label);
+  b.addEventListener("click",()=>answer(b,label,q.answer));
+  box.appendChild(b);
+ });
+
+ speak(q.text);
 }
-function startQuiz(){
-  quizQuestions=shuffle(quizBank).slice(0,10);
-  quizIndex=0;
-  quizScore=0;
-  answered=false;
-  document.getElementById("quizPlay").classList.remove("hidden");
-  document.getElementById("quizResult").classList.add("hidden");
-  renderQuizQuestion();
+
+function answer(btn,label,correct){
+ if(quizLocked)return;
+
+ if(label===correct){
+  quizLocked=true;
+  quizScore++;
+  reward();
+  btn.classList.add("correct");
+  $("feedback").textContent="Ура! Правильно! ⭐";
+  speak("Ура! Правильно!");
+  $("nextQuestion").textContent=
+   quizIndex===quizQuestions.length-1
+    ?"Посмотреть результат 🎉"
+    :"Дальше ➜";
+  $("nextQuestion").classList.remove("hidden");
+ }else{
+  btn.classList.add("wrong");
+  playTone(180,.16,"triangle",.05);
+  $("feedback").textContent="Попробуй ещё раз!";
+  speak("Попробуй ещё раз!");
+  setTimeout(()=>btn.classList.remove("wrong"),400);
+ }
 }
-function renderQuizQuestion(){
-  if(quizIndex>=quizQuestions.length){finishQuiz();return;}
-  answered=false;
-  const item=quizQuestions[quizIndex];
-  document.getElementById("quizCount").textContent="Вопрос "+(quizIndex+1)+" из "+quizQuestions.length;
-  document.getElementById("quizScore").textContent="⭐ "+quizScore;
-  document.getElementById("quizProgress").style.width=(quizIndex/quizQuestions.length*100)+"%";
-  document.getElementById("quizEmoji").textContent=item.emoji;
-  document.getElementById("quizQuestion").textContent=item.q;
-  document.getElementById("quizFeedback").textContent="";
-  document.getElementById("nextQuestion").classList.add("hidden");
-  const answers=document.getElementById("quizAnswers");
-  answers.innerHTML="";
-  shuffle(item.a).forEach(answer=>{
-    const b=document.createElement("button");
-    b.className="answer";
-    b.textContent=answer;
-    b.addEventListener("click",()=>checkAnswer(b,answer,item));
-    answers.appendChild(b);
-  });
-}
-function checkAnswer(button,answer,item){
-  if(answered) return;
-  answered=true;
-  const allButtons=[...document.querySelectorAll("#quizAnswers .answer")];
-  allButtons.forEach(b=>{
-    b.disabled=true;
-    if(b.textContent===item.correct) b.classList.add("correct");
-  });
-  const feedback=document.getElementById("quizFeedback");
-  if(answer===item.correct){
-    quizScore++;
-    button.classList.add("correct");
-    feedback.textContent="Ура! Правильно! 🎉";
-    happySound();
-    speak("Правильно! Молодец!");
-  }else{
-    button.classList.add("wrong");
-    feedback.textContent="Ничего страшного! Правильный ответ: "+item.correct;
-    beep(240,0.18,"triangle");
-    speak("Попробуй ещё раз в следующий раз.");
-  }
-  document.getElementById("quizScore").textContent="⭐ "+quizScore;
-  document.getElementById("nextQuestion").classList.remove("hidden");
-  document.getElementById("nextQuestion").textContent=
-    quizIndex===quizQuestions.length-1?"Узнать результат 🏆":"Следующий вопрос →";
-}
-function nextQuizQuestion(){
-  if(!answered) return;
+
+function nextQuiz(){
+ if(quizIndex<quizQuestions.length-1){
   quizIndex++;
-  renderQuizQuestion();
-}
-function finishQuiz(){
-  document.getElementById("quizPlay").classList.add("hidden");
-  document.getElementById("quizResult").classList.remove("hidden");
-  document.getElementById("quizProgress").style.width="100%";
-  const emoji=quizScore>=9?"🏆":quizScore>=6?"🌟":"🦊";
-  document.getElementById("resultEmoji").textContent=emoji;
-  document.getElementById("resultTitle").textContent=
-    quizScore>=9?"Ура! Ты суперзвезда!":quizScore>=6?"Отличная работа!":"Ты молодец, продолжай учиться!";
-  document.getElementById("resultText").textContent=
-    "Правильных ответов: "+quizScore+" из "+quizQuestions.length+". Давай сыграем ещё раз!";
-  saveBestScore(quizScore);
-  happySound();
-  speak("Викторина закончена. Правильных ответов: "+quizScore+" из десяти.");
-}
-function saveBestScore(score){
-  try{
-    const old=Number(localStorage.getItem("foxBestScore")||0);
-    if(score>old) localStorage.setItem("foxBestScore",String(score));
-    localStorage.setItem("foxLastScore",String(score));
-    localStorage.setItem("foxQuizCount",String(Number(localStorage.getItem("foxQuizCount")||0)+1));
-  }catch(e){}
-  updateProgress();
-}
-function updateProgress(){
-  try{
-    const best=Number(localStorage.getItem("foxBestScore")||0);
-    const total=Number(localStorage.getItem("foxQuizCount")||0);
-    const last=localStorage.getItem("foxLastScore");
-    document.getElementById("savedProgress").textContent=
-      "Пройдено викторин: "+total+". Лучший результат: "+best+" из 10."+
-      (last!==null?" Последний результат: "+last+" из 10.":"");
-  }catch(e){
-    document.getElementById("savedProgress").textContent="Продолжай учиться и открывать новое!";
-  }
-}
-updateProgress();
+  renderQuiz();
+  return;
+ }
 
-/* Запускаем викторину при первом открытии раздела и после возвращения. */
-const quizPanel=document.getElementById("quiz");
-const originalOpenSection=openSection;
-openSection=function(id){
-  originalOpenSection(id);
-  if(id==="quiz") startQuiz();
-};
+ $("question").textContent="Ты молодец!";
+ $("options").innerHTML=
+  '<div style="grid-column:1/-1;font-size:64px">🦊🎉🌈</div>';
+ $("feedback").textContent=
+  "Правильных ответов: "+quizScore+" из "+quizQuestions.length;
+ $("nextQuestion").textContent="Играть ещё раз";
+ speak("Ты молодец! Правильных ответов: "+quizScore);
+}
 
-/* Клавиатура и предотвращение случайного выделения при долгих нажатиях. */
-document.addEventListener("keydown",event=>{
-  if(event.key==="Escape") goHome();
+document.querySelectorAll("[data-open]").forEach(b=>{
+ b.addEventListener("click",()=>{
+  clickSound();
+  const v=b.dataset.open;
+  if(v==="quiz")openQuiz();
+  else openLesson(v);
+ });
+});
+
+$("goHome").addEventListener("click",home);
+$("quizHome").addEventListener("click",home);
+$("prev").addEventListener("click",()=>move(-1));
+$("next").addEventListener("click",()=>move(1));
+$("listen").addEventListener("click",activateCard);
+$("picture").addEventListener("click",activateCard);
+
+$("picture").addEventListener("keydown",e=>{
+ if(e.key==="Enter"||e.key===" "){
+  e.preventDefault();
+  activateCard();
+ }
+});
+
+$("repeat").addEventListener("click",()=>{
+ const item=getData()[index];
+ speak(mode==="animals"
+  ?item.name+". "+item.voice
+  :mode==="numbers"
+   ?"Цифра "+item.name+". Давай посчитаем!"
+   :item.desc);
+});
+
+$("repeatQuestion").addEventListener("click",()=>{
+ speak($("question").textContent);
+});
+
+$("nextQuestion").addEventListener("click",()=>{
+ if($("question").textContent==="Ты молодец!"){
+  openQuiz();
+ }else{
+  nextQuiz();
+ }
 });
 </script>
 </body>
